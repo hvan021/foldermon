@@ -1,6 +1,7 @@
 import os
 import datetime
 import sqlite3
+import Folder
 
 # print "cwd is %s" % os.getcwd()
 # print "listdir is %s" % os.listdir(os.getcwd())
@@ -9,6 +10,9 @@ dbfilename = 'cms.db'
 # cmsdir = os.getcwd()
 # cmsdir = "D:/Client Files"
 cmsdir = "~/ClientFiles"
+
+folder = Folder()
+folder.get_child_dir()
 
 
 def create_db():
@@ -49,21 +53,22 @@ def db_exec(query, values):
 
 
 def add_dir_to_db(dirinfo):
+    pass
 
-if not os.path.isfile(dbfilename):
-    create_db()
-
-
-def is_int(s):
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
+# if not os.path.isfile(dbfilename):
+    # create_db()
 
 
-def strfunixtime(t):
-    return datetime.datetime.fromtimestamp(t).strftime("%Y-%m-%d %H:%M:%S")
+# def is_int(s):
+    # try:
+        # int(s)
+        # return True
+    # except ValueError:
+        # return False
+
+
+# def strfunixtime(t):
+    # return datetime.datetime.fromtimestamp(t).strftime("%Y-%m-%d %H:%M:%S")
 
 
 # dirnames = []
