@@ -1,7 +1,7 @@
 import os
 import datetime
 import sqlite3
-import Folder
+from Folder import Folder
 
 # print "cwd is %s" % os.getcwd()
 # print "listdir is %s" % os.listdir(os.getcwd())
@@ -11,8 +11,8 @@ dbfilename = 'cms.db'
 # cmsdir = "D:/Client Files"
 cmsdir = "~/ClientFiles"
 
-folder = Folder()
-folder.get_child_dir()
+cmsfolder = Folder("C:/Users/Hugh/ClientFiles")
+cmsfolder.print_child_dirs()
 
 
 def create_db():
@@ -54,6 +54,17 @@ def db_exec(query, values):
 
 def add_dir_to_db(dirinfo):
     pass
+
+
+
+
+
+
+
+
+
+
+
 
 # if not os.path.isfile(dbfilename):
     # create_db()
