@@ -9,21 +9,33 @@ from Folder import Folder
 dbfilename = 'cms.db'
 # cmsdir = os.getcwd()
 # cmsdir = "D:/Client Files"
-cmsdir = "~/ClientFiles"
+# cmsdir = "~/ClientFiles"
+cmsdir = "C:/Users/Hugh/ClientFiles"
+cmsfolder = Folder(cmsdir)
+child_dirs = cmsfolder.get_child_dirs()
+# cmsfolder.print_child_dirs()
+# print child_dirs
 
-cmsfolder = Folder("C:/Users/Hugh/ClientFiles")
-cmsfolder.print_child_dirs()
-
+dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
+dirvals = [d.get_cms_client_id_from_dirname() for d in dir_objs]
+# print dirvals
 
 def create_db():
+    print "creating db file"
     conn = sqlite3.connect(dbfilename)
     c = conn.cursor()
     # Create table
     c.execute('''CREATE TABLE IF NOT EXISTS dirs
-                (id integer primary key, client_id integer not null default 0, dirname text, ctime integer, mtime integer, atime integer, synctime integer)''')
+                (id integer primary key, client_id integer not null default 0, dirname text, ctime integer, mtime integer, atime integer, synctime integer NOT NULL DEFAULT 0)''')
 
     # Insert a row of data
     # c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+
+    print "insert items into db"
+    dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
+    dirvals = [d.getval() for d in dir_objs]
+    # dirval = for(Folder(os.path.join(cmsdir, child_dir)) child_dir in child_dirs)
+    c.executemany('INSERT INTO dirs(client_id, dirname, ctime, mtime, atime) VALUES(?,?,?,?,?)', dirvals)
 
     # Save (commit) the changes
     conn.commit()
@@ -31,6 +43,15 @@ def create_db():
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
+
+def get_dirs_from_db():
+    print "getting db items"
+    db = sqlite3.connect(dbfilename)
+    c = db.cursor()
+    c.execute('SELECT * FROM dirs')
+    for d in c.fetchall():
+        print d
+    db.close()
 
 
 def init_dirs():
@@ -56,6 +77,15 @@ def add_dir_to_db(dirinfo):
     pass
 
 
+cwd = os.getcwd()
+# print cwd
+# print os.path.basename(cwd)
+# print os.path.abspath(cwd)
+# print os.path.dirname(cwd)
+
+if not os.path.isfile(os.path.join(cwd, dbfilename)):
+    create_db()
+get_dirs_from_db()
 
 
 

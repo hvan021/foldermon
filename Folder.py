@@ -24,9 +24,31 @@ class Folder(object):
             print "%s | ctime: %s  - mtime: %s - atime: %s" % (d, Folder.strfunixtime(dirstat.st_ctime), Folder.strfunixtime(dirstat.st_mtime), Folder.strfunixtime(dirstat.st_atime))
 
     def get_cms_client_id_from_dirname(self):
-        if Folder.is_int(self.path.split("-")[0]):
-            return self.path.split("-")[0]
+        # print os.path.dirname(self.path)
+        # print os.path.relpath(self.path)
+        # print os.path.split(self.path)
+        # if Folder.is_int(os.path.dirname(self.path).split("-")[0]):
+            # return self.path.split("-")[0]
+        root, dirname = os.path.split(self.path)
+        client_id = dirname.split("-")[0]
+        if Folder.is_int(client_id):
+            return client_id.strip()
+        return 0
 
+    def getval(self):
+        dirstat = os.stat(self.path)
+        return (self.get_cms_client_id_from_dirname(), self.path, dirstat.st_ctime, dirstat.st_mtime, dirstat.st_atime)
+
+    def __str__(self):
+        dirstat = os.stat(self.path)
+        return "%s | ctime: %s  - mtime: %s - atime: %s\n" % (self.path, Folder.strfunixtime(dirstat.st_ctime), Folder.strfunixtime(dirstat.st_mtime), Folder.strfunixtime(dirstat.st_atime))
+
+    def __unicode__(self):
+        dirstat = os.stat(self.path)
+        return u"%s | ctime: %s  - mtime: %s - atime: %s" % (self.path, Folder.strfunixtime(dirstat.st_ctime), Folder.strfunixtime(dirstat.st_mtime), Folder.strfunixtime(dirstat.st_atime))
+
+    def __repr__(self):
+        return self.__str__()
 
     @staticmethod
     def is_int(s):
