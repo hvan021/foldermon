@@ -17,8 +17,19 @@ child_dirs = cmsfolder.get_child_dirs()
 # print child_dirs
 
 dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
-dirvals = [d.get_cms_client_id_from_dirname() for d in dir_objs]
+# dirvals = [d.get_cms_client_id_from_dirname() for d in dir_objs]
+# dirvals = [d.getval() for d in dir_objs]
 # print dirvals
+
+for d in dir_objs:
+    # print d
+    files = d.get_child_files()
+    for f in files:
+        print f
+        # print f.get_owner()
+
+print "*" * 50
+
 
 def create_db():
     print "creating db file"
@@ -44,13 +55,14 @@ def create_db():
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
 
-def get_dirs_from_db():
+def get_dirs_in_db():
     print "getting db items"
     db = sqlite3.connect(dbfilename)
     c = db.cursor()
     c.execute('SELECT * FROM dirs')
     for d in c.fetchall():
         print d
+        print Folder.strfunixtime(d[3])
     db.close()
 
 
@@ -85,7 +97,7 @@ cwd = os.getcwd()
 
 if not os.path.isfile(os.path.join(cwd, dbfilename)):
     create_db()
-get_dirs_from_db()
+# get_dirs_in_db()
 
 
 
