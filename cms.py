@@ -22,11 +22,13 @@ dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
 # print dirvals
 
 for d in dir_objs:
-    # print d
-    files = d.get_child_files()
-    for f in files:
-        print f
-        # print f.get_owner()
+    print d
+
+    if d.get_name().startswith("1705"):
+        files = d.get_child_files()
+        for f in files:
+            print f
+            print f.get_owner()
 
 print "*" * 50
 

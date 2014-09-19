@@ -11,6 +11,10 @@ class Folder(object):
         # self.path = "C:/Users/Hugh/ClientFiles"
         self.path = path
 
+    def get_name(self):
+        root, dname = os.path.split(self.path)
+        return dname
+
     def get_child_dirs(self):
         try:
             # print os.listdir(self.path)

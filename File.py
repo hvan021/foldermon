@@ -12,12 +12,15 @@ class File(object):
     def get_owner(self):
         # print "I am", win32api.GetUserNameEx(win32con.NameSamCompatible)
 
-        sd = win32security.GetFileSecurity(self.path, win32security.OWNER_SECURITY_INFORMATION)
-        owner_sid = sd.GetSecurityDescriptorOwner()
-        name, domain, type = win32security.LookupAccountSid(None, owner_sid)
+        try:
+            security_descriptor = win32security.GetFileSecurity(self.path, win32security.OWNER_SECURITY_INFORMATION)
+            owner_sid = security_descriptor.GetSecurityDescriptorOwner()
+            name, domain, type = win32security.LookupAccountSid(None, owner_sid)
 
-        # print "File owned by %s\\%s" % (domain, name)
-        return name
+            # print "File owned by %s\\%s" % (domain, name)
+            return name
+        except:
+            return 'unknown'
 
     def __str__(self):
         root, fname = os.path.split(self.path)
