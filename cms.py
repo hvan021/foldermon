@@ -1,5 +1,5 @@
 import os
-import datetime
+#import datetime
 import sqlite3
 from Folder import Folder
 
@@ -57,6 +57,7 @@ def create_db():
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
 
+
 def get_dirs_in_db():
     print "getting db items"
     db = sqlite3.connect(dbfilename)
@@ -92,7 +93,7 @@ def add_dir_to_db(dirinfo):
 
 
 cwd = os.getcwd()
-# print cwd
+#print cwd
 # print os.path.basename(cwd)
 # print os.path.abspath(cwd)
 # print os.path.dirname(cwd)
