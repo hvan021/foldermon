@@ -21,14 +21,8 @@ dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
 # dirvals = [d.getval() for d in dir_objs]
 # print dirvals
 
-for d in dir_objs:
-    print d
-
-    # if d.get_name().startswith("1705"):
-    #     files = d.get_child_files()
-    #     for f in files:
-    #         print f
-    #         print f.get_owner()
+#for d in dir_objs:
+    #print d
 
 print "*" * 50
 
@@ -100,7 +94,7 @@ cwd = os.getcwd()
 
 if not os.path.isfile(os.path.join(cwd, dbfilename)):
     create_db()
-# get_dirs_in_db()
+get_dirs_in_db()
 
 
 
