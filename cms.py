@@ -10,19 +10,21 @@ dbfilename = 'cms.db'
 # cmsdir = os.getcwd()
 # cmsdir = "D:/Client Files"
 # cmsdir = "~/ClientFiles"
-cmsdir = "C:/Users/Hugh/ClientFiles"
+#cmsdir = "C:/Users/Hugh/ClientFiles"
+cmsdir = "/home/huy/.config"
 cmsfolder = Folder(cmsdir)
+print cmsfolder
 child_dirs = cmsfolder.get_child_dirs()
-# cmsfolder.print_child_dirs()
-# print child_dirs
+#cmsfolder.print_child_dirs()
+print child_dirs
 
 dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
 # dirvals = [d.get_cms_client_id_from_dirname() for d in dir_objs]
 # dirvals = [d.getval() for d in dir_objs]
 # print dirvals
 
-#for d in dir_objs:
-    #print d
+for d in dir_objs:
+    print d
 
 print "*" * 50
 

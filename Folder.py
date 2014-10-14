@@ -17,10 +17,12 @@ class Folder(object):
 
     def get_child_dirs(self):
         try:
-            # print os.listdir(self.path)
+            #print os.listdir(self.path)
+            # get dirnames with client number only, also sort them by client number
             dirnames = sorted([d for d in os.listdir(self.path) if Folder.is_int(d.split("-")[0]) and os.path.isdir(os.path.join(self.path, d))], key=lambda dname: int(dname.split("-")[0]))
             return dirnames
-        except WindowsError:
+        #except WindowsError:
+        except:
             print "Folder %s not exists" % self.path
 
     def get_child_files(self):
