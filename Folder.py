@@ -18,8 +18,15 @@ class Folder(object):
     def get_child_dirs(self):
         try:
             #print os.listdir(self.path)
+
             # get dirnames with client number only, also sort them by client number
-            dirnames = sorted([d for d in os.listdir(self.path) if Folder.is_int(d.split("-")[0]) and os.path.isdir(os.path.join(self.path, d))], key=lambda dname: int(dname.split("-")[0]))
+            #dirnames = sorted([d for d in os.listdir(self.path) if Folder.is_int(d.split("-")[0]) and os.path.isdir(os.path.join(self.path, d))], key=lambda dname: int(dname.split("-")[0]))
+
+
+            # get all dirnames without any filter
+            dirnames = [d for d in os.listdir(self.path)]
+
+
             return dirnames
         #except WindowsError:
         except:
