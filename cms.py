@@ -2,6 +2,8 @@ import os
 #import datetime
 import sqlite3
 from Folder import Folder
+#import sys
+#print sys.platform
 
 # print "cwd is %s" % os.getcwd()
 # print "listdir is %s" % os.listdir(os.getcwd())
@@ -11,11 +13,11 @@ dbfilename = 'cms.db'
 # cmsdir = "D:/Client Files"
 # cmsdir = "~/ClientFiles"
 #cmsdir = "C:/Users/Hugh/ClientFiles"
+
 cmsdir = "/home/huy/.config"
 cmsfolder = Folder(cmsdir)
 print cmsfolder
 child_dirs = cmsfolder.get_child_dirs()
-#cmsfolder.print_child_dirs()
 print child_dirs
 
 dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
@@ -23,13 +25,13 @@ dir_objs = [Folder(os.path.join(cmsdir, child_dir)) for child_dir in child_dirs]
 # dirvals = [d.getval() for d in dir_objs]
 # print dirvals
 
-for d in dir_objs:
-    print d
+#for d in dir_objs:
+    #print d
 
 print "*" * 50
 
 
-def create_db():
+def init_db():
     print "creating db file"
     conn = sqlite3.connect(dbfilename)
     c = conn.cursor()
@@ -95,28 +97,9 @@ cwd = os.getcwd()
 # print os.path.dirname(cwd)
 
 if not os.path.isfile(os.path.join(cwd, dbfilename)):
-    create_db()
-get_dirs_in_db()
+    init_db()
+#get_dirs_in_db()
 
-
-
-
-
-
-
-
-
-
-# if not os.path.isfile(dbfilename):
-    # create_db()
-
-
-# def is_int(s):
-    # try:
-        # int(s)
-        # return True
-    # except ValueError:
-        # return False
 
 
 # def strfunixtime(t):
