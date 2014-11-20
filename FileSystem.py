@@ -17,6 +17,10 @@ class FileSystem(object):
         # self.type = 'f'
         if os.path.isdir(path):
             self.type = 'd'
+        elif os.path.isfile(path):
+            self.type =  'f'
+        else:
+            pass
 
     def get_name(self):
         root, dname = os.path.split(self.path)
@@ -57,22 +61,27 @@ class FileSystem(object):
                 print "cannot get children for folder %s, exception %s", self.path, sys.exc_info()
 
 
+    def get_size(self):
+        if(self.type == 'f'):
+            pass
+
+
     def print_child_dirs(self):
         for d in self.get_child_dirs():
             dirstat = os.stat(os.path.join(self.path, d))
             print "%s | ctime: %s  - mtime: %s - atime: %s" % (d, Folder.strfunixtime(dirstat.st_ctime), Folder.strfunixtime(dirstat.st_mtime), Folder.strfunixtime(dirstat.st_atime))
 
     def get_cms_client_id_from_dirname(self):
-        # print os.path.dirname(self.path)
-        # print os.path.relpath(self.path)
-        # print os.path.split(self.path)
-        # if Folder.is_int(os.path.dirname(self.path).split("-")[0]):
-            # return self.path.split("-")[0]
-        root, dirname = os.path.split(self.path)
-        client_id = dirname.split("-")[0].strip()
-        if Folder.is_int(client_id):
-            return int(client_id)
-        return 0
+        try:
+            root, dirname = os.path.split(self.path)
+            client_id = dirname.split("-")[0].strip()
+            #if self.is_int(client_id):
+                #return int(client_id)
+            #print client_id
+            if client_id.isdigit():
+                return int(client_id)
+        except:
+            return None
 
     def getval(self):
         dirstat = os.stat(self.path)
@@ -80,6 +89,25 @@ class FileSystem(object):
         # print time.localtime()
         # print time.gmtime()
         return (self.get_cms_client_id_from_dirname(), self.path, dirstat.st_ctime, dirstat.st_mtime, dirstat.st_atime)
+
+    def get_attr(self):
+        dirstat = os.stat(self.path)
+        print dirstat
+        client_id = self.get_cms_client_id_from_dirname()
+        #md5checksum = self.get_md5_checksum()
+        ctime = dirstat.st_ctime
+        mtime = dirstat.st_mtime
+        atime = dirstat.st_atime
+        return (client_id, self.path, self.type, ctime, mtime, atime)
+
+    def get_parent(self):
+        #return os.path.split(self.path)
+        return os.path.dirname(self.path)
+
+
+
+
+
 
     def __str__(self):
         dirstat = os.stat(self.path)
