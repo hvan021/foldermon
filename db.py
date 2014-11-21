@@ -5,17 +5,15 @@ class DB(object):
 
     def __init__(self, dbfilename = 'db.db'):
         self.dbfilename = dbfilename
+        #cwd = os.getcwd()
+        #if not os.path.isfile(os.path.join(cwd, self.dbfilename)):
+            #init_db()
 
     def query(self, query):
         try:
             conn = sqlite3.connect(self.dbfilename)
             c = conn.cursor()
             c.execute(query)
-            #c.execute('''CREATE TABLE IF NOT EXISTS filesytem
-                        #(id integer primary key, path text, md5checksum text default null,
-                        #client_id integer not null default None,
-                        #ctime integer, mtime integer, atime integer,
-                        #synctime integer not null default 0)''')
             conn.commit()
             conn.close()
         except :
