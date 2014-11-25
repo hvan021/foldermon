@@ -68,7 +68,7 @@ class FileSystem(object):
         # print time.gmtime()
         return (self.get_cms_client_id_from_dirname(), self.path, dirstat.st_ctime, dirstat.st_mtime, dirstat.st_atime)
 
-    def get_attr(self, human_readable = False ):
+    def get_attr(self, human_readable = False):
         dirstat = os.stat(self.path)
         ctime = dirstat.st_ctime
         mtime = dirstat.st_mtime
