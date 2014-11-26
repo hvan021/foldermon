@@ -2,12 +2,18 @@ import os
 from filesystem import FileSystem
 from db import DB
 from cmsutil import debug
-import sys
+#import sys
 import time
 import logging
 from watchdog.observers import Observer
-from watchdog.events import LoggingEventHandler
+#from watchdog.events import LoggingEventHandler
+from watchdog.events import FileSystemEventHandler
 
+
+class FileMonHandler(FileSystemEventHandler):
+
+    def on_modified():
+        pass
 
 
 if __name__ == "__main__":
@@ -61,6 +67,9 @@ if __name__ == "__main__":
         print result
 
 
+    # see this for customized event handler http://stackoverflow.com/questions/18599339/python-watchdog-monitoring-file-for-changes
+    # http://stackoverflow.com/questions/11883336/detect-file-creation-with-watchdog
+
     logging.basicConfig(level=logging.INFO,
                             format='%(asctime)s - %(message)s',
                             datefmt='%Y-%m-%d %H:%M:%S')
@@ -76,3 +85,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
+
+
