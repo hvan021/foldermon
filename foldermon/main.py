@@ -67,6 +67,12 @@ if __name__ == "__main__":
         print result
 
 
+
+
+
+
+
+
     # see this for customized event handler http://stackoverflow.com/questions/18599339/python-watchdog-monitoring-file-for-changes
     # http://stackoverflow.com/questions/11883336/detect-file-creation-with-watchdog
 
@@ -75,7 +81,7 @@ if __name__ == "__main__":
                             datefmt='%Y-%m-%d %H:%M:%S')
     #path = sys.argv[1] if len(sys.argv) > 1 else '.'
     path = cmsfolderpath
-    event_handler = LoggingEventHandler()
+    event_handler = MyEventHandler(cmsfolderpath)
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
@@ -85,5 +91,17 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
+
+
+class MyEventHandler(FileSystemEventHandler):
+    def __init__(self, filename):
+        #self.observer = observer
+        self.filename = filename
+
+    def on_created(self, event):
+        print "e=", event
+        #if not event.is_directory and event.src_path.endswith(self.filename):
+            #print "file created"
+            #self.observer.stop()
 
 
